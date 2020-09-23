@@ -1,0 +1,23 @@
+{
+	"name": "DestinationDataset_hqv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_connection",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "indata/fourthcoffee/rentals",
+				"fileSystem": "root"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

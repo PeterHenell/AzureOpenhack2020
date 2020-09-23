@@ -1,0 +1,83 @@
+{
+	"name": "copyTableFromDatabase",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "cloudsales_src",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_table": {
+								"value": "@pipeline().parameters.p_tableName",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "cloudsales_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"cw_fileName": {
+								"value": "@pipeline().parameters.p_sink_fileName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"p_tableName": {
+				"type": "string"
+			},
+			"p_src_database": {
+				"type": "string"
+			},
+			"p_sink_fileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2020-09-22T13:59:20Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

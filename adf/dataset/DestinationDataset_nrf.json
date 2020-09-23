@@ -1,0 +1,30 @@
+{
+	"name": "DestinationDataset_nrf",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_connection",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"cw_fileName": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().cw_fileName",
+					"type": "Expression"
+				},
+				"folderPath": "indata/vanarsdelltd/onlinerentals",
+				"fileSystem": "root"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,12 @@
+{
+	"name": "File-integrationruntime",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/be581a0e-1dac-43b8-9337-251e7d23317c/resourcegroups/h4-RG-SouthridgeVideo/providers/Microsoft.DataFactory/factories/dfh4team5/integrationruntimes/integrationRuntime-fourthcoffee",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}

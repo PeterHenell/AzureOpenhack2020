@@ -1,0 +1,136 @@
+{
+	"name": "CopyVanArsdelSQL",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_nrf",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_nrf",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "dbo.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "root/indata/vanarsdelltd/onlinerentals/@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_nrf",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_nrf",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "Actors"
+						},
+						"destination": {
+							"fileName": "dboActors.snappy.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "Customers"
+						},
+						"destination": {
+							"fileName": "dboCustomers.snappy.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "MovieActors"
+						},
+						"destination": {
+							"fileName": "dboMovieActors.snappy.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "Movies"
+						},
+						"destination": {
+							"fileName": "dboMovies.snappy.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "OnlineMovieMappings"
+						},
+						"destination": {
+							"fileName": "dboOnlineMovieMappings.snappy.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "Transactions"
+						},
+						"destination": {
+							"fileName": "dboTransactions.snappy.parquet"
+						}
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2020-09-23T08:39:21Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

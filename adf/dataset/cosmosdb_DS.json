@@ -1,0 +1,24 @@
+{
+	"name": "cosmosdb_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage_connection",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "indata/cosmosdb"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "indata/southbridge/cosmosdb",
+				"fileSystem": "root"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
